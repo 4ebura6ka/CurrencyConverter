@@ -33,6 +33,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RateReader.cs" />
+    <Compile Include="RateConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="sample1.txt" />
