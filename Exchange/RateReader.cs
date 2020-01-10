@@ -22,7 +22,7 @@ namespace Exchange
 
         public RateReader()
         {
-            if (FileRatePath == string.Empty)
+            if (FileRatePath == string.Empty || FileRatePath == null)
             {
                 CurrencyRates = HardcodedCurrencyRates;
             }
