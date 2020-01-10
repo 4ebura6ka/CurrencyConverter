@@ -11,17 +11,20 @@ namespace Exchange
                 Console.WriteLine("Usage: Exchange <currency pair> <amount to exchange>");
             }
 
-            RateReader rateReader = new RateReader();
-
-            string currencyRate = args[0];
             double moneyAmount = double.Parse(args[1]);
 
-            string mainCurrency = currencyRate.Substring(0, currencyRate.IndexOf("/"));
-            string moneyCurrency = currencyRate.Substring(currencyRate.IndexOf("/"), currencyRate.Length);
+            string currencyCombination = args[0];
+            string[] currencies = currencyCombination.Split('/');
+            string mainCurrency = currencies[0];
+            string moneyCurrency = currencies[1];
+
+            RateReader rateReader = new RateReader();
 
             RateConverter rateConverter = new RateConverter(rateReader.CurrencyRates);
 
-            rateConverter.Convert(mainCurrency, moneyCurrency, moneyAmount);
+            double result = rateConverter.Convert(mainCurrency, moneyCurrency, moneyAmount);
+
+            Console.WriteLine (result);
         }
     }
 }
