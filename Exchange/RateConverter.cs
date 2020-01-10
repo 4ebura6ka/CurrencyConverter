@@ -16,27 +16,40 @@ namespace Exchange
         {
             double rateForSpecifiedCurrencies;
 
-            if (!currencyRates.ContainsKey(moneyCurrency))
-            {
-                throw new ArgumentException("Specified currencies not found in provided rates");
-            }
+            bool bothCurrenciesAreDanish = (mainCurrency == "DKK") && (moneyCurrency == "DKK");
 
-            if (mainCurrency == "DKK")
+            if (bothCurrenciesAreDanish)
             {
-                rateForSpecifiedCurrencies = 100 / currencyRates[moneyCurrency];
-            }
-            else if (moneyCurrency == "DKK")
-            {
-                rateForSpecifiedCurrencies = currencyRates[moneyCurrency] / 100;
+                rateForSpecifiedCurrencies = 1.0;
             }
             else
             {
-                if (!currencyRates.ContainsKey(mainCurrency))
+
+                if (!currencyRates.ContainsKey(moneyCurrency) && moneyCurrency != "DKK")
                 {
                     throw new ArgumentException("Specified currencies not found in provided rates");
                 }
 
-                rateForSpecifiedCurrencies = currencyRates[mainCurrency] / currencyRates[moneyCurrency];
+                if (!currencyRates.ContainsKey(mainCurrency) && mainCurrency != "DKK")
+                {
+                    throw new ArgumentException("Specified currencies not found in provided rates");
+                }
+
+                if (mainCurrency == "DKK")
+                {
+                    rateForSpecifiedCurrencies = 100 / currencyRates[moneyCurrency];
+                }
+                else
+                {
+                    if (moneyCurrency == "DKK")
+                    {
+                        rateForSpecifiedCurrencies = currencyRates[mainCurrency] / 100;
+                    }
+                    else
+                    {
+                        rateForSpecifiedCurrencies = currencyRates[mainCurrency] / currencyRates[moneyCurrency];
+                    }
+                }
             }
 
             double calculateAmountOfMoney = rateForSpecifiedCurrencies * amountOfMoney;

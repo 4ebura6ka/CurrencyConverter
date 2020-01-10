@@ -31,6 +31,8 @@ namespace Exchange.Tests
             RateConverter rateConverter = new RateConverter(HardcodedCurrencyRates);
 
             Assert.AreEqual(7.4394, rateConverter.Convert("EUR", "DKK", 1));
+
+            Assert.AreEqual(1, rateConverter.Convert("DKK", "DKK", 1));
         }
     }
 }
