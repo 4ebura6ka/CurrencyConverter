@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="RateReaderTests.cs" />
+    <Compile Include="RateConverterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

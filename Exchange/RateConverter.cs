@@ -14,14 +14,34 @@ namespace Exchange
 
         public double Convert(string mainCurrency, string moneyCurrency, double amountOfMoney)
         {
-            if (!currencyRates.ContainsKey(mainCurrency) || !currencyRates.ContainsKey(moneyCurrency))
+            double rateForSpecifiedCurrencies;
+
+            if (!currencyRates.ContainsKey(moneyCurrency))
             {
                 throw new ArgumentException("Specified currencies not found in provided rates");
             }
 
-            double rateForSpecifiedCurrencies = currencyRates[mainCurrency] / currencyRates[moneyCurrency];
+            if (mainCurrency == "DKK")
+            {
+                rateForSpecifiedCurrencies = 100 / currencyRates[moneyCurrency];
+            }
+            else if (moneyCurrency == "DKK")
+            {
+                rateForSpecifiedCurrencies = currencyRates[moneyCurrency] / 100;
+            }
+            else
+            {
+                if (!currencyRates.ContainsKey(mainCurrency))
+                {
+                    throw new ArgumentException("Specified currencies not found in provided rates");
+                }
 
-            return rateForSpecifiedCurrencies * amountOfMoney;
+                rateForSpecifiedCurrencies = currencyRates[mainCurrency] / currencyRates[moneyCurrency];
+            }
+
+            double calculateAmountOfMoney = rateForSpecifiedCurrencies * amountOfMoney;
+
+            return Math.Round (calculateAmountOfMoney, 4);
         }
     }
 }
