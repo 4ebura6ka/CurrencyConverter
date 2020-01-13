@@ -3,12 +3,15 @@
 namespace Exchange
 {
     class MainClass
-    { 
+    {
+
+        public static Logging Logger { get; set; } = new Logging();
+
         public static void Main(string[] args)
         {
             if (args.Length <= 0)
             {
-                Console.WriteLine("Usage: Exchange <currency pair> <amount to exchange>");
+                Logging.Log("Usage: Exchange <currency pair> <amount to exchange>");
             }
 
             double moneyAmount = double.Parse(args[1]);
@@ -24,7 +27,7 @@ namespace Exchange
 
             double result = rateConverter.Convert(mainCurrency, moneyCurrency, moneyAmount);
 
-            Console.WriteLine (result);
+            Logging.Log (result.ToString());
         }
     }
 }
