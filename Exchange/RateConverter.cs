@@ -14,43 +14,21 @@ namespace Exchange
 
         public double Convert(string mainCurrency, string moneyCurrency, double amountOfMoney)
         {
-            double rateForSpecifiedCurrencies;
-
-            bool bothCurrenciesAreDanish = (mainCurrency == "DKK") && (moneyCurrency == "DKK");
-
-            if (bothCurrenciesAreDanish)
+            if (!currencyRates.ContainsKey(moneyCurrency) && moneyCurrency != "DKK")
             {
-                rateForSpecifiedCurrencies = 1.0;
+                throw new ArgumentException("Specified currencies not found in provided rates");
             }
-            else
+
+            if (!currencyRates.ContainsKey(mainCurrency) && mainCurrency != "DKK")
             {
-
-                if (!currencyRates.ContainsKey(moneyCurrency) && moneyCurrency != "DKK")
-                {
-                    throw new ArgumentException("Specified currencies not found in provided rates");
-                }
-
-                if (!currencyRates.ContainsKey(mainCurrency) && mainCurrency != "DKK")
-                {
-                    throw new ArgumentException("Specified currencies not found in provided rates");
-                }
-
-                if (mainCurrency == "DKK")
-                {
-                    rateForSpecifiedCurrencies = 100 / currencyRates[moneyCurrency];
-                }
-                else
-                {
-                    if (moneyCurrency == "DKK")
-                    {
-                        rateForSpecifiedCurrencies = currencyRates[mainCurrency] / 100;
-                    }
-                    else
-                    {
-                        rateForSpecifiedCurrencies = currencyRates[mainCurrency] / currencyRates[moneyCurrency];
-                    }
-                }
+                throw new ArgumentException("Specified currencies not found in provided rates");
             }
+
+            double mainRate = mainCurrency == "DKK" ? 100 : currencyRates[mainCurrency];
+
+            double moneyRate = moneyCurrency == "DKK" ? 100 : currencyRates[moneyCurrency];
+
+            double rateForSpecifiedCurrencies = mainRate / moneyRate;
 
             double calculateAmountOfMoney = rateForSpecifiedCurrencies * amountOfMoney;
 

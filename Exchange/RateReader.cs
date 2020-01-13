@@ -6,7 +6,7 @@ namespace Exchange
 {
     public class RateReader
     {
-        public List<string> allowedCurrencies => new List<string> {"EUR", "USD", "GBP", "SEK", "NOK", "CHF", "JPY"};
+        private List<string> allowedCurrencies => new List<string> {"EUR", "USD", "GBP", "SEK", "NOK", "CHF", "JPY"};
 
         public string RatesFilePath { get; set; }
 
