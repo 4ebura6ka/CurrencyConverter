@@ -3,10 +3,7 @@
 namespace Exchange
 {
     class MainClass
-    {
-
-        public static Logging Logger { get; set; } = new Logging();
-
+    { 
         public static void Main(string[] args)
         {
             if (args.Length <= 0)
@@ -21,7 +18,7 @@ namespace Exchange
             string mainCurrency = currencies[0];
             string moneyCurrency = currencies[1];
 
-            RateReader rateReader = new RateReader();
+            RateReader rateReader = new RateReader("/Users/serz/Projects/Exchange/Exchange/sample1.txt");
 
             RateConverter rateConverter = new RateConverter(rateReader.CurrencyRates);
 
